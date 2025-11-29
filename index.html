@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-Evaluación 1: SGE (Sistemas de Gestión Empresarial)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .hidden { display: none; }
+        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-900 text-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold flex items-center gap-2 cursor-pointer" onclick="showMenu()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                SGE - AutoEvaluación 1
+            </h1>
+            <button onclick="showMenu()" class="text-sm bg-blue-800 hover:bg-blue-700 px-3 py-1 rounded transition">Inicio</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-5xl mx-auto w-full p-4 md:p-8">
+        
+        <!-- VISTA: MENÚ PRINCIPAL -->
+        <div id="view-menu" class="fade-in">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Selecciona un Test</h2>
+                <p class="text-slate-600">Repasa por unidades o realiza un simulacro global.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- UD00 -->
+                <div onclick="startQuiz('ud00')" class="bg-white p-6 rounded-xl shadow-md cursor-pointer card-hover border-t-4 border-yellow-500">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">UD 00: Python 3 Básico</h3>
+                    <p class="text-sm text-gray-500 mb-4">Sintaxis, tipos de datos, estructuras de control y funciones.</p>
+                    <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded font-semibold">25 Preguntas</span>
+                </div>
+
+                <!-- UD01 -->
+                <div onclick="startQuiz('ud01')" class="bg-white p-6 rounded-xl shadow-md cursor-pointer card-hover border-t-4 border-blue-500">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">UD 01: Sistemas ERP-CRM-BI</h3>
+                    <p class="text-sm text-gray-500 mb-4">Conceptos teóricos, ventajas, tipos de software y empresa.</p>
+                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded font-semibold">25 Preguntas</span>
+                </div>
+
+                <!-- UD02 -->
+                <div onclick="startQuiz('ud02')" class="bg-white p-6 rounded-xl shadow-md cursor-pointer card-hover border-t-4 border-indigo-500">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">UD 02: Instalación e Iniciación</h3>
+                    <p class="text-sm text-gray-500 mb-4">Arquitecturas (SaaS, IaaS), Docker, Odoo y Licencias.</p>
+                    <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded font-semibold">30 Preguntas</span>
+                </div>
+
+                <!-- UD03 -->
+                <div onclick="startQuiz('ud03')" class="bg-white p-6 rounded-xl shadow-md cursor-pointer card-hover border-t-4 border-purple-500">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">UD 03: Implantación</h3>
+                    <p class="text-sm text-gray-500 mb-4">Módulos funcionales (Ventas, Compras), Localización Española y Backups.</p>
+                    <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded font-semibold">30 Preguntas</span>
+                </div>
+
+                <!-- GLOBAL -->
+                <div onclick="startQuiz('global')" class="bg-gradient-to-br from-slate-800 to-slate-900 text-white p-6 rounded-xl shadow-md cursor-pointer card-hover md:col-span-2 lg:col-span-2 relative overflow-hidden group">
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-bold mb-2 flex items-center gap-2">
+                            <span class="text-3xl">🚀</span> Simulacro Global
+                        </h3>
+                        <p class="text-slate-300 mb-4">Examen aleatorio con preguntas mezcladas de todas las unidades. Ideal para la evaluación final.</p>
+                        <span class="bg-green-500 text-white text-xs px-2 py-1 rounded font-semibold">40 Preguntas Aleatorias</span>
+                    </div>
+                    <div class="absolute right-0 bottom-0 opacity-10 transform translate-x-4 translate-y-4 group-hover:scale-110 transition">
+                        <svg class="w-40 h-40" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISTA: QUIZ ACTIVO -->
+        <div id="view-quiz" class="hidden fade-in">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="quiz-title" class="text-2xl font-bold text-slate-800">Título del Test</h2>
+                <div class="text-sm text-slate-500">Pregunta <span id="current-q-num">1</span> de <span id="total-q-num">10</span></div>
+            </div>
+
+            <div id="quiz-container" class="space-y-8">
+                <!-- Las preguntas se inyectan aquí -->
+            </div>
+
+            <div class="mt-10 flex justify-center gap-4">
+                <button onclick="showMenu()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-lg shadow transition">
+                    Cancelar / Volver
+                </button>
+                <button onclick="calculateScore()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-lg shadow-lg transition transform hover:scale-105">
+                    Corregir Test
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-200 text-center py-4 text-slate-500 text-sm mt-auto">
+        <p>SGE - Desarrollo de Aplicaciones Multiplataforma</p>
+    </footer>
+
+    <!-- Modal Resultados -->
+    <div id="result-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl text-center transform transition-all scale-100">
+            <div id="score-circle" class="w-24 h-24 rounded-full border-4 border-blue-500 flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-blue-600">0/0</div>
+            <h2 id="result-title" class="text-2xl font-bold mb-2">Resultados</h2>
+            <p id="result-message" class="text-gray-600 mb-6"></p>
+            <div class="flex justify-center gap-3">
+                <button onclick="closeModal()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg">
+                    Revisar Fallos
+                </button>
+                <button onclick="showMenu()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
+                    Volver al Menú
+                </button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // --- BASE DE DATOS DE PREGUNTAS ---
+    const DB = {
+        ud00: [
+            { q: "1. ¿Cuáles de las siguientes son características principales de Python 3?", options: ["Es un lenguaje interpretado.", "Requiere declarar obligatoriamente los tipos de datos.", "Tiene una sintaxis sencilla y es auto-expresivo.", "Genera ficheros de código intermedio compilados."], answer: [0, 2], type: "multi", rationale: "Python es interpretado y de sintaxis sencilla." },
+            { q: "2. ¿Cómo se definen los comentarios en Python?", options: ["//", "#", "''' o \"\"\" (multilínea)", "/* */"], answer: [1, 2], type: "multi", rationale: "Se usa # para una línea y tres comillas para bloques." },
+            { q: "3. Resultado de `34 // 5` en Python:", options: ["6.8", "7", "6", "Error"], answer: [2], type: "multi", rationale: "// es división entera." },
+            { q: "4. Sobre las Listas en Python:", options: ["Son inmutables.", "Se definen con [].", "Admiten índice -1 (último).", "No permiten duplicados."], answer: [1, 2], type: "multi", rationale: "Las listas son mutables, usan [] y admiten índices negativos." },
+            { q: "5. Diferencia Tupla vs Lista:", options: ["Tuplas {}, Listas []", "Tuplas inmutables, Listas mutables", "Sin diferencia", "Listas solo números"], answer: [1], type: "multi", rationale: "Tuplas son inmutables." },
+            { q: "6. `print('Hola ' + 'mundo!')` imprime:", options: ["Hola mundo!", "Holamundo!", "Error", "None"], answer: [0], type: "multi", rationale: "Concatena cadenas." },
+            { q: "7. Sobre Diccionarios:", options: ["Definidos con {}.", "Acceso a clave inexistente da error (sin .get).", ".get() evita error.", "Claves ordenadas numéricamente."], answer: [0, 1, 2], type: "multi", rationale: "Pares clave-valor." },
+            { q: "8. Iterar secuencia:", options: ["loop", "for", "switch", "repeat"], answer: [1], type: "multi", rationale: "Bucle for." },
+            { q: "9. Valores False en Python:", options: ["0", "[]", "None", "-1"], answer: [0, 1, 2], type: "multi", rationale: "0, vacíos y None son False." },
+            { q: "10. Definir función:", options: ["function x()", "def x():", "func x", "create x"], answer: [1], type: "multi", rationale: "Palabra clave def." },
+            { q: "11. `range(4)` genera:", options: ["1,2,3,4", "0,1,2,3", "Lista vacía", "Error"], answer: [1], type: "multi", rationale: "0 a n-1." },
+            { q: "12. Bloque `try/except`:", options: ["Funciones", "Importar", "Manejo Excepciones", "Bucles"], answer: [2], type: "multi", rationale: "Gestión de errores." },
+            { q: "13. Conjuntos (Sets):", options: ["Duplicados permitidos", "Definidos con {}", "Unión/Intersección", "Ordenados"], answer: [1, 2], type: "multi", rationale: "Únicos, sin orden, operaciones de conjuntos." },
+            { q: "14. `__init__`:", options: ["Iniciar programa", "Constructor de clase", "Variable global", "Import"], answer: [1], type: "multi", rationale: "Constructor." },
+            { q: "15. `*args`:", options: ["Multiplica args", "Número variable de argumentos posicionales", "Obligatorios", "Error"], answer: [1], type: "multi", rationale: "Argumentos variables." },
+            { q: "16. Lambda:", options: ["Función anónima", "Solo números", "Lenta", "Decorador"], answer: [0], type: "multi", rationale: "Función anónima en línea." },
+            { q: "17. `pass`:", options: ["Stop", "Saltar", "No hace nada (placeholder)", "Aprobar"], answer: [2], type: "multi", rationale: "Operación nula." },
+            { q: "18. Importar math:", options: ["include", "import", "using", "require"], answer: [1], type: "multi", rationale: "import math." },
+            { q: "19. Generadores (yield):", options: ["Todo a memoria", "Valores bajo demanda (lazy)", "Listas", "Hilos"], answer: [1], type: "multi", rationale: "Lazy evaluation." },
+            { q: "20. Igualdad:", options: ["=", "==", "===", "equals"], answer: [1], type: "multi", rationale: "== compara valor." },
+            { q: "21. Relaciona Operadores:", type: "match", pairs: [{term: "/", def: "División float"}, {term: "//", def: "División entera"}, {term: "**", def: "Potencia"}, {term: "%", def: "Módulo"}] },
+            { q: "22. Relaciona Colecciones:", type: "match", pairs: [{term: "Lista", def: "Mutable []"}, {term: "Tupla", def: "Inmutable ()"}, {term: "Diccionario", def: "Clave-Valor {}"}, {term: "Set", def: "Únicos {}"}] },
+            { q: "23. Relaciona Funciones:", type: "match", pairs: [{term: "def", def: "Definir"}, {term: "return", def: "Devolver"}, {term: "lambda", def: "Anónima"}, {term: "**kwargs", def: "Args clave"}] },
+            { q: "24. Relaciona POO:", type: "match", pairs: [{term: "Class", def: "Plantilla"}, {term: "Self", def: "Instancia actual"}, {term: "__init__", def: "Constructor"}, {term: "Herencia", def: "Padre-Hijo"}] },
+            { q: "25. Relaciona Avanzado:", type: "match", pairs: [{term: "Módulo", def: "Archivo .py"}, {term: "Decorador", def: "Envoltorio"}, {term: "Yield", def: "Generador"}, {term: "Pip", def: "Paquetes"}] }
+        ],
+        ud01: [
+            { q: "1. Significado ERP:", options: ["Ent. Rel. Process", "Enterprise Resource Planning", "Elect. Res. Prog.", "Efficient Res. Prot."], answer: [1], type: "multi", rationale: "Planificación de Recursos Empresariales." },
+            { q: "2. Función CRM:", options: ["Contabilidad", "Relación con Clientes", "Stock", "Hardware"], answer: [1], type: "multi", rationale: "Gestión de clientes y ventas." },
+            { q: "3. BI (Business Intelligence):", options: ["Análisis de datos/Decisiones", "Nóminas", "Backups", "Redes"], answer: [0], type: "multi", rationale: "Inteligencia de negocio." },
+            { q: "4. Sistema ERP actual:", options: ["Solo contabilidad", "Integrado (ERP+CRM+BI)", "Papel", "Hardware"], answer: [1], type: "multi", rationale: "Suelen ser suites integradas." },
+            { q: "5. Ventajas ERP:", options: ["Dato único/Integrado", "Bajo coste", "Modular", "Menos hardware"], answer: [0, 2], type: "multi", rationale: "Integración y modularidad." },
+            { q: "6. Desventajas ERP:", options: ["Punto único fallo", "Personalización difícil", "Sobredimensionado PYMEs", "Descentralizado"], answer: [0, 2], type: "multi", rationale: "Riesgo centralizado y coste/tamaño." },
+            { q: "7. ¿Programar vs Usar existente?", options: ["Programar siempre", "Usar existente (robusto)", "Excel", "Becarios"], answer: [1], type: "multi", rationale: "Mejor solución probada." },
+            { q: "8. Ventaja Licencia Libre:", options: ["Gratis siempre", "Menor dependencia proveedor", "Soporte oficial", "Inmutable"], answer: [1], type: "multi", rationale: "Evita vendor lock-in." },
+            { q: "9. ERP Privativos:", options: ["SAP", "Odoo Com.", "Microsoft Dynamics", "OpenBravo"], answer: [0, 2], type: "multi", rationale: "SAP y MS son propietarios." },
+            { q: "10. Retos implantación:", options: ["Resistencia cambio", "Migración datos", "Exceso presupuesto", "Electricidad"], answer: [0, 1], type: "multi", rationale: "Factor humano y datos." },
+            { q: "11. Persona Jurídica:", options: ["Humano", "Entidad/Sociedad", "Autónomo", "Abogado"], answer: [1], type: "multi", rationale: "Responde con bienes de la entidad." },
+            { q: "12. Factura Simplificada vs Completa:", options: ["Sin IVA", "Menos datos (Ticket)", "Solo grandes", "Iguales"], answer: [1], type: "multi", rationale: "Simplificada omite datos del receptor." },
+            { q: "13. Factura Proforma:", options: ["Definitiva", "Obligatoria", "Oferta sin valor contable", "Impagada"], answer: [2], type: "multi", rationale: "Es un borrador/oferta." },
+            { q: "14. Logística:", options: ["Fabricación", "Almacenamiento datos", "Transporte/Distribución", "RRHH"], answer: [2], type: "multi", rationale: "Movimiento de bienes." },
+            { q: "15. ERP del curso:", options: ["SAP", "Oracle", "Odoo", "AbanQ"], answer: [2], type: "multi", rationale: "Usamos Odoo." },
+            { q: "16. Solución resistencia empleados:", options: ["Despido", "Imponer", "Formación/Comunicación", "Ignorar"], answer: [2], type: "multi", rationale: "Gestión del cambio." },
+            { q: "17. IVA:", options: ["Directo", "Indirecto (Valor Añadido)", "Descuento", "Tasa"], answer: [1], type: "multi", rationale: "Impuesto al consumo." },
+            { q: "18. Orden de Producción:", options: ["Sugerencia", "Concreción fabricación", "Diseño", "Factura"], answer: [1], type: "multi", rationale: "Orden de fabricar X cantidad." },
+            { q: "19. Stock:", options: ["Dinero", "Existencias físicas", "Muebles", "Empleados"], answer: [1], type: "multi", rationale: "Inventario." },
+            { q: "20. Problemas Datos:", options: ["Duplicados", "Codificación", "Migración", "Todos"], answer: [3], type: "multi", rationale: "Calidad del dato." },
+            { q: "21. Relaciona Siglas:", type: "match", pairs: [{term: "ERP", def: "Planif. Recursos"}, {term: "CRM", def: "Gestión Clientes"}, {term: "BI", def: "Inteligencia Negocio"}, {term: "IVA", def: "Impuesto Valor Añadido"}] },
+            { q: "22. Relaciona Pros/Contras:", type: "match", pairs: [{term: "Ventaja", def: "Dato único"}, {term: "Inconveniente", def: "Coste inicial"}, {term: "Ventaja", def: "Modular"}, {term: "Inconveniente", def: "Punto fallo único"}] },
+            { q: "23. Relaciona Entidades:", type: "match", pairs: [{term: "Física", def: "Individuo"}, {term: "Jurídica", def: "Sociedad"}, {term: "Cliente", def: "Compra"}, {term: "Proveedor", def: "Vende"}] },
+            { q: "24. Relaciona Facturas:", type: "match", pairs: [{term: "Completa", def: "Todos datos"}, {term: "Simplificada", def: "Ticket"}, {term: "Proforma", def: "Sin valor contable"}, {term: "Recibo", def: "Justificante pago"}] },
+            { q: "25. Relaciona Procesos:", type: "match", pairs: [{term: "Producción", def: "Fabricar"}, {term: "Logística", def: "Transportar"}, {term: "Stock", def: "Almacenar"}, {term: "Distribución", def: "Entrega final"}] }
+        ],
+        ud02: [
+            { q: "1. Desventaja On-Premise:", options: ["Internet", "Inversión Hardware/Mantenimiento", "Datos fuera", "Escalado fácil"], answer: [1], type: "multi", rationale: "Costes fijos altos." },
+            { q: "2. Ventaja Nube:", options: ["Control físico", "Sin internet", "Pago por uso/Escalado", "Más barato siempre"], answer: [2], type: "multi", rationale: "Flexibilidad." },
+            { q: "3. IaaS:", options: ["Software (Gmail)", "Infraestructura (VPS)", "Plataforma (Hosting)", "Instalación"], answer: [1], type: "multi", rationale: "Infraestructura como servicio." },
+            { q: "4. SaaS:", options: ["IaaS", "PaaS", "Software listo (Gmail/Odoo Online)", "On-Premise"], answer: [2], type: "multi", rationale: "Software como servicio." },
+            { q: "5. Versión Odoo curso:", options: ["Enterprise", "Community (Libre)", "Beta", "SAP"], answer: [1], type: "multi", rationale: "Community Edition." },
+            { q: "6. Carpeta compartida (BD):", options: ["Caro", "Problemas integridad/seguridad", "Moderno", "Linux"], answer: [1], type: "multi", rationale: "Mala práctica." },
+            { q: "7. Licencia Libre:", options: ["Gratis", "Modificable/Redistribuible", "Sin soporte", "Igual"], answer: [1], type: "multi", rationale: "Libertad de código." },
+            { q: "8. SAI:", options: ["Almacenamiento", "Alimentación Ininterrumpida", "Análisis", "Licencia"], answer: [1], type: "multi", rationale: "Protección eléctrica." },
+            { q: "9. Hardware crítico Odoo:", options: ["GPU", "Sonido", "Disco (SSD/IOPS)", "Monitor"], answer: [2], type: "multi", rationale: "Base de datos requiere disco rápido." },
+            { q: "10. Docker vs VM:", options: ["Lento", "Rendimiento nativo/Ligero", "Solo Windows", "Sin BD"], answer: [1], type: "multi", rationale: "Contenedores comparten kernel." },
+            { q: "11. BD de Odoo:", options: ["MySQL", "PostgreSQL", "Oracle", "SQLite"], answer: [1], type: "multi", rationale: "PostgreSQL es obligatorio." },
+            { q: "12. Docker `-d`:", options: ["Borrar", "Segundo plano (Detached)", "Descargar", "Debug"], answer: [1], type: "multi", rationale: "Detached mode." },
+            { q: "13. Docker `-v`:", options: ["Verificar", "Versión", "Volúmenes (Persistencia)", "Visualizar"], answer: [2], type: "multi", rationale: "Mapeo de volúmenes." },
+            { q: "14. Orquestador recomendado:", options: ["K8s", "Docker Compose", "VBox", "Vagrant"], answer: [1], type: "multi", rationale: "Para definir servicios (web+db)." },
+            { q: "15. Fichero Compose:", options: ["dockerfile", "compose.json", "docker-compose.yml", "config"], answer: [2], type: "multi", rationale: "Formato YAML." },
+            { q: "16. Iniciar Compose:", options: ["start", "up -d", "run", "init"], answer: [1], type: "multi", rationale: "docker compose up -d." },
+            { q: "17. Perder Password Maestro:", options: ["Reinstalar", "Pagar", "Editar config (borrar admin_passwd)", "Imposible"], answer: [2], type: "multi", rationale: "Se resetea en odoo.conf." },
+            { q: "18. Escalado Horizontal:", options: ["Más potencia máquina", "Más máquinas", "Monitor ancho", "Nube"], answer: [1], type: "multi", rationale: "Añadir nodos." },
+            { q: "19. SO recomendado:", options: ["Windows", "Cualquiera", "Ubuntu Server (Linux)", "Mac"], answer: [2], type: "multi", rationale: "Odoo es nativo de Linux." },
+            { q: "20. Puerto Odoo:", options: ["80", "8080", "8069", "5432"], answer: [2], type: "multi", rationale: "8069 Web, 5432 Postgres." },
+            { q: "21. (Video) IaaS responsabilidades:", options: ["Todo proveedor", "Proveedor HW / Cliente SW", "Todo cliente", "Solo devs"], answer: [1], type: "multi", rationale: "Alquilas el hierro." },
+            { q: "22. (Video) PaaS público:", options: ["Usuarios", "Desarrolladores", "Admins BD", "Marketing"], answer: [1], type: "multi", rationale: "Entorno para desplegar código." },
+            { q: "23. (Video) Ejemplos SaaS:", options: ["AWS", "App Engine", "Gmail/Zoom/Office365", "Disco"], answer: [2], type: "multi", rationale: "Apps finales." },
+            { q: "24. (Video) 'As a Service':", options: ["Físico", "Servicio bajo demanda", "Open Source", "Local"], answer: [1], type: "multi", rationale: "Modelo de servicio." },
+            { q: "25. Relaciona Nube:", type: "match", pairs: [{term: "IaaS", def: "Infraestructura"}, {term: "PaaS", def: "Plataforma"}, {term: "SaaS", def: "Software"}, {term: "On-Premise", def: "Local"}] },
+            { q: "26. Relaciona Docker:", type: "match", pairs: [{term: "-d", def: "Fondo"}, {term: "-p", def: "Puertos"}, {term: "-v", def: "Volúmenes"}, {term: "-e", def: "Variables"}] },
+            { q: "27. Relaciona Hardware:", type: "match", pairs: [{term: "SAI", def: "Batería"}, {term: "ECC", def: "RAM segura"}, {term: "RAID", def: "Discos"}, {term: "Mainframe", def: "Central antiguo"}] },
+            { q: "28. Relaciona Software:", type: "match", pairs: [{term: "GPL", def: "Libre"}, {term: "PostgreSQL", def: "Base Datos"}, {term: "Community", def: "Gratis"}, {term: "Ubuntu", def: "SO Host"}] },
+            { q: "29. Relaciona Comandos:", type: "match", pairs: [{term: "docker run", def: "Contenedor único"}, {term: "compose up", def: "Servicios"}, {term: "yml", def: "Config Compose"}, {term: "conf", def: "Config Odoo"}] },
+            { q: "30. Relaciona Video:", type: "match", pairs: [{term: "AWS EC2", def: "IaaS"}, {term: "App Engine", def: "PaaS"}, {term: "Gmail", def: "SaaS"}, {term: "Casa vacía", def: "Analogía IaaS"}] }
+        ],
+        ud03: [
+            { q: "1. Dependencia de Facturación:", options: ["Ventas", "Conversaciones (Discuss)", "Inventario", "Web"], answer: [1], type: "multi", rationale: "Módulo base." },
+            { q: "2. Configuración crítica inicial:", options: ["Fondo", "Datos Empresa/Localización Fiscal", "Horario", "Música"], answer: [1], type: "multi", rationale: "Fiscalidad y datos legales." },
+            { q: "3. Acceso empleado a Odoo:", options: ["Ficha empleado", "Usuario vinculado", "Contraseña admin", "Módulo chat"], answer: [1], type: "multi", rationale: "Necesita usuario de sistema." },
+            { q: "4. Flujo Compras:", options: ["Factura->Pedido", "Solicitud Presupuesto -> Pedido", "Pedido->Albarán", "Pago->Factura"], answer: [1], type: "multi", rationale: "RFQ -> PO." },
+            { q: "5. Confirmar Presupuesto Venta:", options: ["Borrar", "Pedido de Venta", "Hacienda", "Empleado"], answer: [1], type: "multi", rationale: "Pasa a Pedido firme." },
+            { q: "6. Requisito TPV:", options: ["Gratis", "Foto", "Marcado 'Disponible en TPV'", "Servicios"], answer: [2], type: "multi", rationale: "Check en producto." },
+            { q: "7. Elementos Backup Odoo:", options: ["Solo BD", "BD + Filestore + Config", "Código", "Usuarios"], answer: [1], type: "multi", rationale: "Datos, adjuntos y config." },
+            { q: "8. Comando backup Postgres:", options: ["docker run", "pg_dump", "tar", "git"], answer: [1], type: "multi", rationale: "Dump lógico." },
+            { q: "9. Datos persistentes Docker:", options: ["RAM", "Volúmenes", "Tmp", "Nada"], answer: [1], type: "multi", rationale: "Persistencia en vols." },
+            { q: "10. Website Builder:", options: ["Nóminas", "Crear web corporativa", "Hackear", "Optimizar"], answer: [1], type: "multi", rationale: "CMS integrado." },
+            { q: "11. (Blog) Módulo base España:", options: ["spain_mod", "l10n_es", "odoo_spain", "es_acc"], answer: [1], type: "multi", rationale: "Nomenclatura estándar." },
+            { q: "12. (Blog) Tras copiar addons:", options: ["Reiniciar", "Actualizar lista módulos (Modo Dev)", "Borrar BD", "Pagar"], answer: [1], type: "multi", rationale: "Reconocer nuevos archivos." },
+            { q: "13. (Blog) Topónimos:", options: ["Traducir", "Provincias/Ciudades/CP", "Rutas", "Mapas"], answer: [1], type: "multi", rationale: "Datos geográficos." },
+            { q: "14. (Blog) Config PGCE:", options: ["Tipo (Pyme) e Impuestos defecto", "Nombre", "Color", "Cuenta"], answer: [0], type: "multi", rationale: "Plan contable e IVA." },
+            { q: "15. (Blog) Adaptación clientes/bancos:", options: ["Traducir", "Validar NIF/Cuentas", "AEAT", "Cheques"], answer: [1], type: "multi", rationale: "Validaciones locales." },
+            { q: "16. (Blog) Permiso instalar local:", options: ["Superusuario", "Modo Desarrollador / Téc.", "Internet", "Contable"], answer: [1], type: "multi", rationale: "Opciones técnicas." },
+            { q: "17. (Blog) Recomendación BD:", options: ["Una", "Dos (Prod + Test)", "Sin pass", "SQLite"], answer: [1], type: "multi", rationale: "Sandbox para pruebas." },
+            { q: "18. (Blog) Descarga localización:", options: ["Microsoft", "GitHub OCA", "Softonic", "Instalada"], answer: [1], type: "multi", rationale: "Comunidad OCA." },
+            { q: "19. (Blog) Topónimos provincia:", options: ["Español", "Oficial", "Inglés", "Números"], answer: [1], type: "multi", rationale: "Evitar problemas legales." },
+            { q: "20. Importancia Loc. Fiscal:", options: ["Estética", "Cumplimiento legal/contable", "Velocidad", "Nada"], answer: [1], type: "multi", rationale: "Normativa país." },
+            { q: "21. Sesión TPV:", options: ["Periodo caja (Apertura-Cierre)", "Reunión", "Cerveza", "Error"], answer: [0], type: "multi", rationale: "Control de caja." },
+            { q: "22. Filestore:", options: ["BD", "Archivos adjuntos en disco", "Nube", "RAM"], answer: [1], type: "multi", rationale: "Almacenamiento binario." },
+            { q: "23. CRM:", options: ["Facturas", "Relación/Oportunidades", "Almacén", "Web"], answer: [1], type: "multi", rationale: "Gestión pre-venta." },
+            { q: "24. Código de barras:", options: ["Pago", "Logística (escaneo)", "QR Web", "Nada"], answer: [1], type: "multi", rationale: "Operaciones rápidas." },
+            { q: "25. Relaciona Módulos:", type: "match", pairs: [{term: "Facturación", def: "Pagos"}, {term: "Ventas", def: "Pedidos cliente"}, {term: "Compras", def: "Pedidos proveedor"}, {term: "TPV", def: "Tienda física"}] },
+            { q: "26. Relaciona Localización:", type: "match", pairs: [{term: "l10n_es", def: "Base España"}, {term: "PGCE", def: "Plan Contable"}, {term: "Topónimos", def: "Provincias"}, {term: "OCA", def: "Comunidad"}] },
+            { q: "27. Relaciona Backup:", type: "match", pairs: [{term: "pg_dump", def: "SQL Dump"}, {term: "Filestore", def: "Adjuntos"}, {term: "odoo.conf", def: "Config"}, {term: "Addons", def: "Módulos extra"}] },
+            { q: "28. Relaciona Docs:", type: "match", pairs: [{term: "RFQ", def: "Solicitud Presupuesto"}, {term: "Presupuesto", def: "Oferta"}, {term: "Factura", def: "Fiscal"}, {term: "Recibo", def: "Ticket TPV"}] },
+            { q: "29. Relaciona Config:", type: "match", pairs: [{term: "Compañía", def: "Datos empresa"}, {term: "Usuario", def: "Login"}, {term: "Empleado", def: "RRHH"}, {term: "Departamento", def: "Grupo"}] },
+            { q: "30. Relaciona Pasos:", type: "match", pairs: [{term: "1. Descargar", def: "GitHub"}, {term: "2. Copiar", def: "Addons"}, {term: "3. Actualizar", def: "Lista módulos"}, {term: "4. Instalar", def: "Activar"}] }
+        ]
+    };
+
+    let currentQuestions = [];
+    let currentTitle = "";
+
+    // --- LÓGICA DE NAVEGACIÓN ---
+    function showMenu() {
+        document.getElementById('view-menu').classList.remove('hidden');
+        document.getElementById('view-quiz').classList.add('hidden');
+        document.getElementById('result-modal').classList.add('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function startQuiz(type) {
+        if (type === 'global') {
+            // Generar examen global aleatorio (10 de cada unidad = 40 preguntas)
+            const q0 = shuffle([...DB.ud00]).slice(0, 10);
+            const q1 = shuffle([...DB.ud01]).slice(0, 10);
+            const q2 = shuffle([...DB.ud02]).slice(0, 10);
+            const q3 = shuffle([...DB.ud03]).slice(0, 10);
+            currentQuestions = shuffle([...q0, ...q1, ...q2, ...q3]);
+            currentTitle = "Simulacro Global (Evaluación 1)";
+        } else {
+            // Cargar unidad específica
+            currentQuestions = [...DB[type]]; // Clonar para no alterar original si hacemos shuffle
+            // Opcional: mezclar preguntas de la unidad
+            // currentQuestions = shuffle(currentQuestions); 
+            
+            const titles = {
+                'ud00': 'UD 00: Python 3 Básico',
+                'ud01': 'UD 01: Sistemas ERP-CRM-BI',
+                'ud02': 'UD 02: Instalación e Iniciación',
+                'ud03': 'UD 03: Implantación'
+            };
+            currentTitle = titles[type];
+        }
+
+        renderQuiz();
+        document.getElementById('view-menu').classList.add('hidden');
+        document.getElementById('view-quiz').classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- LÓGICA DEL QUIZ ---
+    function renderQuiz() {
+        document.getElementById('quiz-title').textContent = currentTitle;
+        document.getElementById('total-q-num').textContent = currentQuestions.length;
+        const container = document.getElementById('quiz-container');
+        container.innerHTML = '';
+
+        currentQuestions.forEach((q, index) => {
+            let html = `
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition hover:shadow-md" id="q-card-${index}">
+                    <div class="flex items-start gap-3 mb-4">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded-md mt-1">#${index + 1}</span>
+                        <h3 class="text-lg font-semibold text-gray-800">${q.q}</h3>
+                    </div>
+            `;
+
+            if (q.type === 'multi') {
+                html += `<div class="space-y-2 ml-2">`;
+                q.options.forEach((opt, i) => {
+                    html += `
+                        <label class="flex items-center p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-blue-50 transition">
+                            <input type="checkbox" name="q${index}" value="${i}" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300">
+                            <span class="ml-3 text-gray-700 select-none">${opt}</span>
+                        </label>
+                    `;
+                });
+                html += `</div>`;
+            } else if (q.type === 'match') {
+                // Mezclar definiciones
+                let definitions = shuffle(q.pairs.map(p => p.def));
+                html += `<div class="grid gap-4 mt-2 bg-gray-50 p-4 rounded-lg">`;
+                q.pairs.forEach((pair, i) => {
+                    html += `
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-gray-200 last:border-0">
+                            <span class="font-medium text-gray-700 w-1/3">${pair.term}</span>
+                            <select id="q${index}_${i}" class="w-full sm:w-1/2 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white">
+                                <option value="">Selecciona...</option>
+                                ${definitions.map(def => `<option value="${def}">${def}</option>`).join('')}
+                            </select>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+            }
+
+            html += `<div id="feedback${index}" class="hidden mt-4 p-4 rounded-lg text-sm border-l-4"></div></div>`;
+            container.innerHTML += html;
+        });
+    }
+
+    function calculateScore() {
+        let score = 0;
+        let total = currentQuestions.length;
+
+        currentQuestions.forEach((q, index) => {
+            const feedback = document.getElementById(`feedback${index}`);
+            const card = document.getElementById(`q-card-${index}`);
+            let isCorrect = false;
+
+            if (q.type === 'multi') {
+                const checked = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(c => parseInt(c.value)).sort();
+                const correct = q.answer.slice().sort();
+                if (JSON.stringify(checked) === JSON.stringify(correct)) isCorrect = true;
+
+                if (isCorrect) {
+                    feedback.className = "mt-4 p-4 rounded-lg text-sm border-l-4 bg-green-50 border-green-500 text-green-800 fade-in";
+                    feedback.innerHTML = `<strong>¡Correcto!</strong> ${q.rationale}`;
+                } else {
+                    feedback.className = "mt-4 p-4 rounded-lg text-sm border-l-4 bg-red-50 border-red-500 text-red-800 fade-in";
+                    const correctText = correct.map(i => q.options[i]).join(', ');
+                    feedback.innerHTML = `<strong>Incorrecto.</strong><br>Correcta: <em>${correctText}</em>.<br><span class="opacity-75">${q.rationale}</span>`;
+                }
+
+            } else if (q.type === 'match') {
+                let allMatch = true;
+                q.pairs.forEach((pair, i) => {
+                    const val = document.getElementById(`q${index}_${i}`).value;
+                    if (val !== pair.def) allMatch = false;
+                });
+                isCorrect = allMatch;
+
+                if (isCorrect) {
+                    feedback.className = "mt-4 p-4 rounded-lg text-sm border-l-4 bg-green-50 border-green-500 text-green-800 fade-in";
+                    feedback.innerHTML = `<strong>¡Perfecto!</strong>`;
+                } else {
+                    feedback.className = "mt-4 p-4 rounded-lg text-sm border-l-4 bg-red-50 border-red-500 text-red-800 fade-in";
+                    let sol = q.pairs.map(p => `<li><b>${p.term}</b> → ${p.def}</li>`).join('');
+                    feedback.innerHTML = `<strong>Errores.</strong> Solución:<ul class="list-disc ml-5">${sol}</ul>`;
+                }
+            }
+
+            if (isCorrect) {
+                score++;
+                card.classList.add('border-green-200', 'bg-green-50');
+                card.classList.remove('bg-white');
+            } else {
+                card.classList.add('border-red-200', 'bg-red-50');
+                card.classList.remove('bg-white');
+            }
+            feedback.classList.remove('hidden');
+        });
+
+        // Mostrar Modal
+        const modal = document.getElementById('result-modal');
+        const scoreCircle = document.getElementById('score-circle');
+        const resultTitle = document.getElementById('result-title');
+        const resultMsg = document.getElementById('result-message');
+
+        scoreCircle.textContent = `${score}/${total}`;
+        let percent = (score / total) * 100;
+
+        if (percent === 100) {
+            resultTitle.textContent = "¡Matrícula de Honor!";
+            resultMsg.textContent = "Dominas la materia a la perfección.";
+            scoreCircle.className = "w-24 h-24 rounded-full border-4 border-green-500 flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-green-600 bg-green-50";
+        } else if (percent >= 50) {
+            resultTitle.textContent = "¡Aprobado!";
+            resultMsg.textContent = "Buen trabajo, sigue repasando los fallos.";
+            scoreCircle.className = "w-24 h-24 rounded-full border-4 border-blue-500 flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-blue-600 bg-blue-50";
+        } else {
+            resultTitle.textContent = "Necesita Mejorar";
+            resultMsg.textContent = "No te rindas, repasa el temario e inténtalo de nuevo.";
+            scoreCircle.className = "w-24 h-24 rounded-full border-4 border-orange-500 flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-orange-600 bg-orange-50";
+        }
+
+        modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('result-modal').classList.add('hidden');
+        // Scroll al primer fallo
+        const firstError = document.querySelector('.border-red-200');
+        if(firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Utilidad: Mezclar array
+    function shuffle(array) {
+        let currentIndex = array.length, randomIndex;
+        while (currentIndex != 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+        }
+        return array;
+    }
+</script>
+
+</body>
+</html>
